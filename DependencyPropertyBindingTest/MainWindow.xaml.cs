@@ -1,28 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DependencyPropertyBindingTest
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        private double sliderValue = 3;
+        public double SliderValue 
+        { 
+            get => sliderValue; 
+            set
+            {
+                sliderValue = value;
+                onPropertyChanged(nameof(SliderValue));
+            }
+        }
+
+        private SolidColorBrush circleFill;
+        public SolidColorBrush CircleFill
+        {
+            get => circleFill;
+            set
+            {
+                circleFill = value;
+                onPropertyChanged(nameof(CircleFill));
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        // INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void onPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void Change_Color(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var newColor = button.Background;
+            CircleFill = (SolidColorBrush)newColor;
         }
     }
 }

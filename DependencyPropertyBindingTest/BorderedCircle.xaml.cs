@@ -1,26 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DependencyPropertyBindingTest
 {
-    /// <summary>
-    /// Interaction logic for BorderedCircle.xaml
-    /// </summary>
     public partial class BorderedCircle : UserControl, INotifyPropertyChanged
     {
+        // Fill Color
         public static readonly DependencyProperty FillColorProperty = DependencyProperty.Register(nameof(FillColor), typeof(SolidColorBrush), typeof(BorderedCircle), new PropertyMetadata(new SolidColorBrush(Colors.Blue)));                                                                                          
         public SolidColorBrush FillColor
         {
@@ -28,20 +15,21 @@ namespace DependencyPropertyBindingTest
             set { SetValue(FillColorProperty, value); onPropertyChanged(nameof(FillColor));  }
         }
 
-
+        // Border Size (thickness)
         public static readonly DependencyProperty BorderSizeProperty = DependencyProperty.Register(nameof(BorderSize), typeof(double), typeof(BorderedCircle), new PropertyMetadata(1.0));
-
-
         public double BorderSize
         {
             get => (double)GetValue(BorderSizeProperty);
             set  { SetValue(BorderSizeProperty, value); onPropertyChanged(nameof(BorderSize)); }
         }
 
+        // Constructor
         public BorderedCircle()
         {
             InitializeComponent();
         }
+
+        // INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void onPropertyChanged(string propertyName)
