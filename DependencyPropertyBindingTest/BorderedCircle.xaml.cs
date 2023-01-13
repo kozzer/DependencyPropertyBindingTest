@@ -30,11 +30,7 @@ namespace DependencyPropertyBindingTest
         }
 
         // INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void onPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        private void  onPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        public  event PropertyChangedEventHandler PropertyChanged;
     }
 }
